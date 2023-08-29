@@ -18,7 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.felipe.sistema.entities.Usuario;
 import com.felipe.sistema.services.UsuarioService;
 
-import jakarta.servlet.Servlet;
 
 @RestController
 @RequestMapping(value = "/usuarios")
