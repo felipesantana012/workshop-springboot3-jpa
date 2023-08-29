@@ -13,6 +13,8 @@ import com.felipe.sistema.repositories.UsuarioRepository;
 import com.felipe.sistema.services.excecoes.BancoDadosExcecao;
 import com.felipe.sistema.services.excecoes.RecursoNaoEncontradoExcecao;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UsuarioService {
 
@@ -45,9 +47,15 @@ public class UsuarioService {
 	}
 	
 	public Usuario Update(Long id, Usuario obj) {
-		Usuario entidade = usuarioRepository.getReferenceById(id);
-		atualizarDados(entidade, obj);
-		return usuarioRepository.save(entidade);
+		try {
+			Usuario entidade = usuarioRepository.getReferenceById(id);
+			atualizarDados(entidade, obj);
+			return usuarioRepository.save(entidade);
+		}
+		catch(EntityNotFoundException e) {
+			throw new RecursoNaoEncontradoExcecao(id);
+		}
+	
 	}
 
 	private void atualizarDados(Usuario entidade, Usuario obj) {
